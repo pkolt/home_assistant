@@ -1,27 +1,28 @@
 services:
-  homeassistant:
-    container_name: homeassistant
+  ha:
+    container_name: ha
     image: "homeassistant/home-assistant"
     volumes:
-      - ./config:/config
+      - ./ha/config:/config
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
     ports:
       - 8123:8123
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
-    restart: unless-stopped
+    restart: always
     privileged: true
     networks:
       - private
 
-  nginx:
-    container_name: nginx
+  web:
+    container_name: web
     image: "nginx"
     restart: always
+    depends_on:
+      - ha
     volumes:
       - ./nginx/templates:/etc/nginx/templates:ro
-      - ./nginx/conf/htpasswd:/etc/nginx/conf/htpasswd:ro
       - ./public:/usr/share/nginx/html:ro
       - ./certbot/conf/:/etc/nginx/ssl:ro
     networks:
@@ -31,6 +32,10 @@ services:
     - 80:80
     env_file:
       - .env
+
+# volumes:
+# - /var/run/docker.sock:/var/run/docker.sock  # Доступ к Docker API
+# docker exec target some-command
 
 # Это позволяет контейнерам взаимодействовать друг с другом по именам сервисов (нужно указать сеть private у каждого контейнера)
 networks:
