@@ -1,31 +1,31 @@
 # Умный дом с Home Assistant
 
-https://www.home-assistant.io/installation/linux/#survey_section
+Подробнее про [установку Home Assistant](https://www.home-assistant.io/installation/linux/#survey_section).
 
 http://127.0.0.1
 http://127.0.0.1:8123
 
-## Запуск
+## Создание и запуск
 
 ```sh
 docker compose up -d
 ```
 
-## Остановить контейнеры
+## Остановить
 
 ```sh
-docker-compose stop
+docker compose stop
 ```
 
 
-## Остановить и удалить контейнеры
+## Остановить и удалить
 
 ```sh
 docker compose down --rmi local -v
 ```
 
-## Запустить снова
+## Запустить
 
 ```sh
-docker-compose start
+docker compose start
 ```
