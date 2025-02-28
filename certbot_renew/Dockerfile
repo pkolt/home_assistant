@@ -1,3 +1,6 @@
+# Перевыпускает SSL-сертификат по Cron и перезапускает Nginx
+# Использует порт 80 для перевыпуска сертификата
+
 FROM debian:stable-slim
 
 RUN apt-get update
