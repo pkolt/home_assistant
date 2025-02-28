@@ -33,8 +33,10 @@ services:
     image: "nginx"
     restart: always
     depends_on:
-      - home_assistant
-      - certbot_once
+      home_assistant:
+        condition: service_completed_successfully
+      certbot_once:
+        condition: service_completed_successfully
     volumes:
       - ./nginx/templates:/etc/nginx/templates:ro
       - ./letsencrypt/:/etc/nginx/ssl:ro
@@ -51,7 +53,8 @@ services:
     build: ./certbot_renew
     restart: always
     depends_on:
-      - nginx
+      nginx:
+        condition: service_completed_successfully
     ports:
       - 80:80
     volumes:

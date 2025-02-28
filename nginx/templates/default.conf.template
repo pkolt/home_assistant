@@ -1,5 +1,5 @@
 # https://www.nginx.com/blog/rate-limiting-nginx/
-limit_req_zone $binary_remote_addr zone=mylimit:10m rate=10r/s; #! Не используется
+limit_req_zone $binary_remote_addr zone=req_limit_per_ip:10m rate=10r/m;
 
 server {
     set $root_dir /usr/share/nginx/html;
@@ -35,6 +35,7 @@ server {
     listen 443 ssl;
     http2  on;
     server_name ${SITE_HOST};
+    limit_req zone=req_limit_per_ip burst=5 nodelay;
     server_tokens off;
     ssl_certificate /etc/nginx/ssl/live/${SITE_HOST}/fullchain.pem;
     ssl_certificate_key /etc/nginx/ssl/live/${SITE_HOST}/privkey.pem;

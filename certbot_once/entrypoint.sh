@@ -17,7 +17,7 @@ if [[ ! -f "$SSL_CERTIFICATE" ]]; then
     echo "SSL certificate file is not exists!"
 
     # Only for production
-    # certbot certonly --standalone --email $ADMIN_EMAIL --agree-tos --no-eff-email -d $SITE_HOST
+    certbot certonly --standalone --email $ADMIN_EMAIL --agree-tos --no-eff-email -d $SITE_HOST
 
     # Only for test
     # certbot certonly --standalone --email $ADMIN_EMAIL --agree-tos --no-eff-email -d $SITE_HOST --dry-run
