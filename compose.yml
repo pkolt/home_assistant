@@ -34,7 +34,7 @@ services:
     restart: always
     depends_on:
       home_assistant:
-        condition: service_completed_successfully
+        condition: service_started
       certbot_once:
         condition: service_completed_successfully
     volumes:
@@ -44,7 +44,6 @@ services:
       - private
     ports:
     - 443:443
-    - 8080:8080
     env_file:
       - .env
 

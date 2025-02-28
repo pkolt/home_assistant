@@ -2,8 +2,7 @@
 
 Подробнее про [установку Home Assistant](https://www.home-assistant.io/installation/linux/#survey_section).
 
-- [Прямой доступ к Home Assistant](http://127.0.0.1:8123)
-- [Доступ к Home Assistant через Nginx](http://127.0.0.1:8080)
+[Локальный доступ к Home Assistant](http://127.0.0.1:8123)
 
 Описание контейнеров:
 - `certbot_once` - выпускает SSL-сертификат если его нет и завершает выполнение;
