@@ -1,9 +1,22 @@
 services:
-  ha:
-    container_name: ha
+  certbot_once:
+    container_name: certbot_once
+    build: ./certbot_once
+    restart: no
+    ports:
+      - 80:80
+    volumes:
+      - ./letsencrypt/:/etc/letsencrypt
+    env_file:
+      - .env
+    networks:
+      - private
+
+  home_assistant:
+    container_name: home_assistant
     image: "homeassistant/home-assistant"
     volumes:
-      - ./ha/config:/config
+      - ./home_assistant/config:/config
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
     ports:
@@ -15,23 +28,39 @@ services:
     networks:
       - private
 
-  web:
-    container_name: web
+  nginx:
+    container_name: nginx
     image: "nginx"
     restart: always
     depends_on:
-      - ha
+      - home_assistant
+      - certbot_once
     volumes:
       - ./nginx/templates:/etc/nginx/templates:ro
-      - ./public:/usr/share/nginx/html:ro
-      - ./certbot/conf/:/etc/nginx/ssl:ro
+      - ./letsencrypt/:/etc/nginx/ssl:ro
     networks:
       - private
     ports:
     - 443:443
-    - 80:80
+    - 8080:8080
     env_file:
       - .env
+
+  certbot_renew:
+    container_name: certbot_renew
+    build: ./certbot_renew
+    restart: always
+    depends_on:
+      - nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./letsencrypt/:/etc/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      - .env
+    networks:
+      - private
 
 # volumes:
 # - /var/run/docker.sock:/var/run/docker.sock  # Доступ к Docker API

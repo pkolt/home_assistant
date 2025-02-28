@@ -1,3 +1,4 @@
 .env
-ha/config/*
-!ha/config/configuration.yaml
+letsencrypt
+home_assistant/config/*
+!home_assistant/config/configuration.yaml
