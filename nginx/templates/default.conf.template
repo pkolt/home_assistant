@@ -1,12 +1,13 @@
 # https://www.nginx.com/blog/rate-limiting-nginx/
-limit_req_zone $binary_remote_addr zone=req_limit_per_ip:10m rate=10r/m;
+limit_req_zone $binary_remote_addr zone=req_limit_per_ip:10m rate=5r/s;
+limit_conn_zone $binary_remote_addr zone=conn_limit:10m;
 
 server {
     set $root_dir /usr/share/nginx/html;
 
     listen 443 ssl;
     server_name ${SITE_HOST};
-    # limit_req zone=req_limit_per_ip burst=5 nodelay;
+    limit_req zone=req_limit_per_ip burst=5 nodelay;
     server_tokens off;
     ssl_certificate /etc/nginx/ssl/live/${SITE_HOST}/fullchain.pem;
     ssl_certificate_key /etc/nginx/ssl/live/${SITE_HOST}/privkey.pem;
@@ -16,13 +17,13 @@ server {
 
     location / {
         proxy_pass http://home_assistant:8123;
-        proxy_http_version  1.1;
-        proxy_cache_bypass  $http_upgrade;
-        proxy_set_header Host              $host;
-        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
-        proxy_set_header X-Real-IP         $remote_addr;
-        proxy_set_header X-Forwarded-Host  $host;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-Port  $server_port;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+        limit_conn conn_limit 10;
     }
 }
