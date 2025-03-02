@@ -42,3 +42,19 @@ docker compose stop
 ```sh
 docker compose start
 ```
+
+### Отладка
+
+```sh
+// -f показывает логи в реальном времени
+docker compose logs -f
+docker compose logs nginx -f
+docker compose logs home_assistant -f
+
+// показывает последние N строк логов
+docker compose logs nginx --tail=50
+
+// открыть терминал для контейнера
+docker compose exec home_assistant bash
+docker compose exec nginx bash
+```
