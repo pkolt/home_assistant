@@ -5,30 +5,24 @@ server {
     set $root_dir /usr/share/nginx/html;
 
     listen 443 ssl;
-    http2  on;
     server_name ${SITE_HOST};
     # limit_req zone=req_limit_per_ip burst=5 nodelay;
     server_tokens off;
     ssl_certificate /etc/nginx/ssl/live/${SITE_HOST}/fullchain.pem;
     ssl_certificate_key /etc/nginx/ssl/live/${SITE_HOST}/privkey.pem;
+    ssl_trusted_certificate /etc/nginx/ssl/live/${SITE_HOST}/chain.pem;
     root $root_dir;
     index index.html;
 
     location / {
         proxy_pass http://home_assistant:8123;
-        proxy_http_version 1.1;
-
-        # Для поддержки WebSocket
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-
-        # Передаем все заголовки для правильной маршрутизации
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_http_version  1.1;
+        proxy_cache_bypass  $http_upgrade;
+        proxy_set_header Host              $host;
+        proxy_set_header X-Forwarded-For   $proxy_add_x_forwarded_for;
+        proxy_set_header X-Real-IP         $remote_addr;
+        proxy_set_header X-Forwarded-Host  $host;
         proxy_set_header X-Forwarded-Proto $scheme;
-
-        # Обход кэширования при WebSocket-соединении
-        proxy_cache_bypass $http_upgrade;
+        proxy_set_header X-Forwarded-Port  $server_port;
     }
 }
