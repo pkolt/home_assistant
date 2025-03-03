@@ -22,39 +22,39 @@
 ### Создание и запуск
 
 ```sh
-docker compose up -d
+sudo docker compose up -d
 ```
 
 ### Остановить и удалить
 
 ```sh
-docker compose down --rmi local -v
+sudo docker compose down --rmi local -v
 ```
 
 ### Остановить
 
 ```sh
-docker compose stop
+sudo docker compose stop
 ```
 
 ### Запустить
 
 ```sh
-docker compose start
+sudo docker compose start
 ```
 
 ### Отладка
 
 ```sh
 // -f показывает логи в реальном времени
-docker compose logs -f
-docker compose logs nginx -f
-docker compose logs home_assistant -f
+sudo docker compose logs -f
+sudo docker compose logs nginx -f
+sudo docker compose logs home_assistant -f
 
 // показывает последние N строк логов
-docker compose logs nginx --tail=50
+sudo docker compose logs nginx --tail=50
 
 // открыть терминал для контейнера
-docker compose exec home_assistant bash
-docker compose exec nginx bash
+sudo docker compose exec home_assistant bash
+sudo docker compose exec nginx bash
 ```
