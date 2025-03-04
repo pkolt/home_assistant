@@ -58,3 +58,10 @@ sudo docker compose logs nginx --tail=50
 sudo docker compose exec home_assistant bash
 sudo docker compose exec nginx bash
 ```
+
+## Настройка локального домена на роутерах Keenetic
+
+```
+(config)> ip host <доменное_имя_хоста> <адрес>
+(config)> system configuration save
+```
