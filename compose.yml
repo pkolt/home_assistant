@@ -20,7 +20,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
     ports:
-      - 8123:8123
+      - 8080:8080
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
     restart: always

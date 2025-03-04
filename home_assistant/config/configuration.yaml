@@ -11,6 +11,7 @@ scene: !include scenes.yaml
 
 # https://www.home-assistant.io/integrations/http/
 http:
+  server_port: 8080
   use_x_forwarded_for: true
   trusted_proxies:
     - 172.16.0.0/12

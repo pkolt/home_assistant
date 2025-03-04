@@ -18,7 +18,7 @@ server {
     limit_req_status 429;  # Отдавать HTTP 429 вместо 503 при превышении лимита
 
     location / {
-        proxy_pass http://home_assistant:8123;
+        proxy_pass http://home_assistant:8080;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
