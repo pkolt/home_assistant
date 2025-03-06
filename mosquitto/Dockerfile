@@ -5,6 +5,9 @@ RUN apt-get upgrade -y
 
 RUN apt install -y mosquitto
 
+RUN mkdir -p /var/run/mosquitto
+RUN chown mosquitto:mosquitto /var/run/mosquitto
+
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
