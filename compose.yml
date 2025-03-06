@@ -67,6 +67,7 @@ services:
     container_name: mosquitto
     build: ./mosquitto
     restart: always
+    user: mosquitto:mosquitto
     ports:
       - 1883:1883
     volumes:
