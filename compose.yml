@@ -15,6 +15,9 @@ services:
   home_assistant:
     container_name: home_assistant
     image: "homeassistant/home-assistant"
+    restart: always
+    depends_on:
+      - mosquitto
     volumes:
       - ./home_assistant/config:/config
       - /etc/localtime:/etc/localtime:ro
@@ -23,7 +26,6 @@ services:
       - 8080:8080
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
-    restart: always
     privileged: true
     networks:
       - private
@@ -56,6 +58,21 @@ services:
     volumes:
       - ./letsencrypt/:/etc/letsencrypt
       - /var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      - .env
+    networks:
+      - private
+
+  mosquitto:
+    container_name: mosquitto
+    build: ./mosquitto
+    restart: always
+    ports:
+      - 1883:1883
+    volumes:
+      - ./mosquitto/config/:/etc/mosquitto/conf.d/
+      - ./mosquitto/log/:/var/log/mosquitto/mosquitto.log
+      - ./mosquitto/password_file:/etc/mosquitto/password_file
     env_file:
       - .env
     networks:
