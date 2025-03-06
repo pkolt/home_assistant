@@ -8,9 +8,6 @@ RUN apt install -y mosquitto
 RUN mkdir -p /var/run/mosquitto
 RUN chown mosquitto:mosquitto /var/run/mosquitto
 
-RUN mkdir -p /var/log/mosquitto
-RUN chown mosquitto:mosquitto /var/log/mosquitto
-
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
