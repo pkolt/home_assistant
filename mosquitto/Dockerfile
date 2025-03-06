@@ -9,5 +9,5 @@ COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 EXPOSE 1883
-VOLUME ["/etc/mosquitto/conf.d/", "/var/log/mosquitto/", "/etc/mosquitto/password_file"]
+VOLUME ["/etc/mosquitto/conf.d/", "/var/log/mosquitto/", "/etc/mosquitto/secret/"]
 ENTRYPOINT ["bash", "/entrypoint.sh"]

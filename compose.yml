@@ -72,7 +72,7 @@ services:
     volumes:
       - ./mosquitto/config/:/etc/mosquitto/conf.d/
       - ./mosquitto/log/:/var/log/mosquitto/mosquitto.log
-      - ./mosquitto/password_file:/etc/mosquitto/password_file
+      - ./mosquitto/secret/:/etc/mosquitto/secret/
     env_file:
       - .env
     networks:

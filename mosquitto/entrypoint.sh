@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PASSWORD_FILE=/etc/mosquitto/password_file
+PASSWORD_FILE=/etc/mosquitto/secret/password_file
 CONFIG_FILE=/etc/mosquitto/mosquitto.conf
 LOG_FILE=/var/log/mosquitto/mosquitto.log
 
@@ -9,4 +9,9 @@ if [[ ! -f "$PASSWORD_FILE" ]]; then
     mosquitto_passwd -c -b "$PASSWORD_FILE" "$MOSQUITTO_USER" "$MOSQUITTO_PASSWORD"
 fi
 
-exec mosquitto -с "$CONFIG_FILE"
+if [[ ! -f "$PASSWORD_FILE" ]]; then
+    echo "ERROR: Not found password file $PASSWORD_FILE"
+    exit 1
+fi
+
+exec mosquitto -c "$CONFIG_FILE"
