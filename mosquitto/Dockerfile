@@ -6,8 +6,6 @@ RUN apt-get upgrade -y
 RUN apt install -y mosquitto
 
 RUN mkdir -p /var/run/mosquitto
-RUN mkdir -p /var/log/mosquitto
-RUN touch /var/log/mosquitto/mosquitto.log
 
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh

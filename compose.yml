@@ -72,7 +72,7 @@ services:
       - 1883:1883
     volumes:
       - ./mosquitto/config/:/etc/mosquitto/conf.d/
-      - ./mosquitto/log/:/var/log/mosquitto/mosquitto.log
+      - ./mosquitto/log/:/var/log/mosquitto/
       - ./mosquitto/secret/:/etc/mosquitto/secret/
     env_file:
       - .env
