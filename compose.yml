@@ -18,6 +18,8 @@ services:
     restart: always
     depends_on:
       - mosquitto
+      - whisper
+      - piper
     volumes:
       - ./home_assistant/config:/config
       - /etc/localtime:/etc/localtime:ro
@@ -111,6 +113,25 @@ services:
       - ./whisper/config:/config
     ports:
       - 10300:10300
+
+  piper:
+    image: lscr.io/linuxserver/piper:latest
+    container_name: piper
+    restart: always
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - PIPER_VOICE=ru_RU-irina-medium
+      - PIPER_LENGTH=1.0 #optional
+      - PIPER_NOISE=0.667 #optional
+      - PIPER_NOISEW=0.333 #optional
+      - PIPER_SPEAKER=0 #optional
+      - PIPER_PROCS=1 #optional
+    volumes:
+      - ./piper/config:/config
+    ports:
+      - 10200:10200
 
 # volumes:
 # - /var/run/docker.sock:/var/run/docker.sock  # Доступ к Docker API
