@@ -96,6 +96,22 @@ services:
       - USERNAME=${ESPHOME_USERNAME}
       - PASSWORD=${ESPHOME_PASSWORD}
 
+  whisper:
+    image: lscr.io/linuxserver/faster-whisper:latest
+    container_name: whisper
+    restart: always
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TZ}
+      - WHISPER_MODEL=tiny-int8
+      - WHISPER_BEAM=1 #optional
+      - WHISPER_LANG=ru #optional
+    volumes:
+      - ./whisper/config:/config
+    ports:
+      - 10300:10300
+
 # volumes:
 # - /var/run/docker.sock:/var/run/docker.sock  # Доступ к Docker API
 # docker exec target some-command
