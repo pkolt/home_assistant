@@ -28,7 +28,9 @@ sudo ufw allow 80 \
 && sudo ufw allow 6052 \
 && sudo ufw allow 6053 \
 && sudo ufw allow 8266 \
-&& sudo ufw allow 3232
+&& sudo ufw allow 3232 \
+&& sudo ufw allow 10300 \
+&& sudo ufw allow 10200
 ```
 4. Запуск контейнеров `docker compose up -d`
 
