@@ -83,8 +83,10 @@ services:
     restart: always
     privileged: true
     ports:
-      - 6053:6053
-      - 8266:8266
+      - 6052:6052 # Веб-интерфейс ESPHome
+      - 6053:6053 # для связи ESPHome с Home Assistant
+      - 8266:8266 # для OTA-прошивки устройств на ESP8266
+      - 3232:3232 # для OTA-прошивки устройств на ESP32
     volumes:
       - ./esphome/config:/config
       - /etc/localtime:/etc/localtime:ro

@@ -14,11 +14,22 @@
 
 1. Копировать файл настроек: `cp .env.example .env`
 2. Заполнить файл настроек `mcedit .env`
-3. Если используется UFW - открыть порты для внешней сети `ufw allow 80 && ufw allow 443 && ufw allow 8080 && ufw allow 1883`
+3. Если используется UFW - открыть порты для внешней сети
    1. `80` - порт для обновления сертификата SSL утилитой certbot
    2. `443` - порт HTTPS для внешнего доступа
    3. `8080` - порт для локального доступа (на случай если интернет будет недоступен)
    4. `1883` - порт MQTT сервера
+   5. `6052` - порт ESPHome
+```sh
+sudo ufw allow 80 \
+&& sudo ufw allow 443 \
+&& sudo ufw allow 8080 \
+&& sudo ufw allow 1883 \
+&& sudo ufw allow 6052 \
+&& sudo ufw allow 6053 \
+&& sudo ufw allow 8266 \
+&& sudo ufw allow 3232
+```
 4. Запуск контейнеров `docker compose up -d`
 
 ## Полезные команды Docker Compose
