@@ -148,7 +148,7 @@ services:
       - TZ=${TZ}
     devices:
       # Make sure this matched your adapter location
-      - /dev/ttyUSB0:/dev/ttyUSB0
+      - /dev/ttyUSB0:/dev/ttyACM0
 
 # volumes:
 # - /var/run/docker.sock:/var/run/docker.sock  # Доступ к Docker API
