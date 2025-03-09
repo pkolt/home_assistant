@@ -147,7 +147,9 @@ services:
       - TZ=${TZ}
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
-    privileged: true
+    group_add:
+    - dialout
+    user: 1000:1000
     networks:
       - private
 
