@@ -20,7 +20,6 @@ services:
       - mosquitto
       - whisper
       - piper
-      - zigbee2mqtt
     volumes:
       - ./home_assistant/config:/config
       - /etc/localtime:/etc/localtime:ro
