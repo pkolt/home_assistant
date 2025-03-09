@@ -20,6 +20,7 @@ services:
       - mosquitto
       - whisper
       - piper
+      - zigbee2mqtt
     volumes:
       - ./home_assistant/config:/config
       - /etc/localtime:/etc/localtime:ro
@@ -132,6 +133,22 @@ services:
       - ./piper/config:/config
     ports:
       - 10200:10200
+
+  zigbee2mqtt:
+    container_name: zigbee2mqtt
+    image: koenkk/zigbee2mqtt
+    restart: always
+    volumes:
+      - ./zigbee2mqtt/data:/app/data
+      - /run/udev:/run/udev:ro
+    ports:
+      # Frontend port
+      - 8080:8081
+    environment:
+      - TZ=${TZ}
+    devices:
+      # Make sure this matched your adapter location
+      - /dev/ttyUSB0:/dev/ttyUSB0
 
 # volumes:
 # - /var/run/docker.sock:/var/run/docker.sock  # Доступ к Docker API
