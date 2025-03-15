@@ -83,6 +83,13 @@ sudo docker compose exec home_assistant bash
 sudo docker compose exec nginx bash
 ```
 
+### Обновление
+
+```sh
+sudo docker compose pull
+sudo docker compose up -d --force-recreate
+```
+
 ## Настройка локального домена на роутерах Keenetic
 
 ```
