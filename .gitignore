@@ -2,3 +2,6 @@
 letsencrypt
 home_assistant/config/*
 !home_assistant/config/configuration.yaml
+!home_assistant/config/automations.yaml
+!home_assistant/config/scenes.yaml
+!home_assistant/config/scripts.yaml
