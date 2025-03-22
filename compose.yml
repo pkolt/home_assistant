@@ -140,7 +140,7 @@ services:
     ports:
       - 8081:8081
     volumes:
-      - ./zigbee2mqtt:/app/data
+      - ./zigbee2mqtt/data:/app/data
       - /run/udev:/run/udev:ro
     networks:
       - private
