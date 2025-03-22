@@ -17,7 +17,7 @@ services:
     image: "homeassistant/home-assistant"
     restart: always
     depends_on:
-      - mosquitto
+      - mqtt
       - whisper
       - piper
     volumes:
@@ -65,17 +65,18 @@ services:
     networks:
       - private
 
-  mosquitto:
-    container_name: mosquitto
-    build: ./mosquitto
+  mqtt:
+    container_name: mqtt
+    build: ./mqtt
     restart: always
     ports:
       - 1883:1883
     volumes:
-      - ./mosquitto/config/:/etc/mosquitto/conf.d/
-      - ./mosquitto/secret/:/etc/mosquitto/secret/
-    env_file:
-      - .env
+      - ./mqtt/config/:/etc/mosquitto/conf.d/
+      - ./mqtt/secret/:/etc/mosquitto/secret/
+    environment:
+      - MQTT_USER=admin_mqtt
+      - MQTT_PASSWORD=mqtt_12345
     networks:
       - private
 
@@ -146,8 +147,6 @@ services:
       - private
     environment:
       - TZ=${TZ}
-      - MQTT_USER=${MOSQUITTO_USER}
-      - MQTT_PASSWORD=${MOSQUITTO_PASSWORD}
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
 

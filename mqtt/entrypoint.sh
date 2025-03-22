@@ -6,7 +6,7 @@ LOG_FILE=/var/log/mosquitto/mosquitto.log
 
 if [[ ! -f "$PASSWORD_FILE" ]]; then
     echo "Create new user" | tee -a "$LOG_FILE"
-    mosquitto_passwd -c -b "$PASSWORD_FILE" "$MOSQUITTO_USER" "$MOSQUITTO_PASSWORD"
+    mosquitto_passwd -c -b "$PASSWORD_FILE" "$MQTT_USER" "$MQTT_PASSWORD"
 fi
 
 if [[ ! -f "$PASSWORD_FILE" ]]; then
