@@ -14,24 +14,35 @@
 
 1. Копировать файл настроек: `cp .env.example .env`
 2. Заполнить файл настроек `mcedit .env`
-3. Если используется UFW - открыть порты для внешней сети
-   1. `80` - порт для обновления сертификата SSL утилитой certbot
-   2. `443` - порт HTTPS для внешнего доступа
-   3. `8080` - порт для локального доступа (на случай если интернет будет недоступен)
-   4. `1883` - порт MQTT сервера
-   5. `6052` - порт ESPHome
+3. Открыть порты через UFW
+
 ```sh
-sudo ufw allow 80 \
-&& sudo ufw allow 443 \
-&& sudo ufw allow 8080 \
-&& sudo ufw allow 1883 \
-&& sudo ufw allow 6052 \
-&& sudo ufw allow 6053 \
-&& sudo ufw allow 8266 \
-&& sudo ufw allow 3232 \
-&& sudo ufw allow 10300 \
-&& sudo ufw allow 10200 \
-&& sudo ufw allow 8081
+# для обновления сертификата SSL утилитой certbot
+sudo ufw allow 80
+
+# для внешнего доступа по HTTPS
+sudo ufw allow 443
+
+# для локального доступа (на случай если интернет будет недоступен)
+sudo ufw allow 8080
+
+# для MQTT сервера
+sudo ufw allow 1883
+
+# для ESPHome
+sudo ufw allow 6052
+sudo ufw allow 6053
+sudo ufw allow 8266
+sudo ufw allow 3232
+
+# для Whisper
+sudo ufw allow 10300
+
+# для Piper
+sudo ufw allow 10200
+
+# для Zigbee2MQTT
+sudo ufw allow 8081
 ```
 4. Запуск контейнеров `docker compose up -d`
 
