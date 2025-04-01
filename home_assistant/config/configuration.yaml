@@ -17,3 +17,14 @@ http:
     - 172.16.0.0/12
   ip_ban_enabled: true
   login_attempts_threshold: 3
+
+# telegram_bot:
+#   - platform: polling
+#     api_key: <api_key>
+#     allowed_chat_ids:
+#       - <channel_id>
+
+# notify:
+#   - name: telegram_notifier
+#     platform: telegram
+#     chat_id: <channel_id>
