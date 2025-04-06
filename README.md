@@ -43,6 +43,9 @@ sudo ufw allow 10200
 
 # для Zigbee2MQTT
 sudo ufw allow 8081
+
+# для VLC
+sudo ufw allow 4212
 ```
 4. Запуск контейнеров `docker compose up -d`
 

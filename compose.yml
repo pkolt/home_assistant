@@ -21,6 +21,7 @@ services:
       - whisper
       - piper
       - zigbee2mqtt
+      - vlc
     volumes:
       - ./home_assistant/config:/config
       - /etc/localtime:/etc/localtime:ro
@@ -152,6 +153,21 @@ services:
       - TZ=${TZ}
     devices:
       - /dev/ttyUSB0:/dev/ttyUSB0
+
+  vlc:
+    container_name: vlc
+    image: ne1ver/vlc-telnet
+    restart: always
+    ports:
+      - 4212:4212
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    devices:
+      - "/dev/snd:/dev/snd"
+    environment:
+      - VLC_TELNET_PASSWORD=${VLC_TELNET_PASSWORD} 
+    networks:
+      - private
 
 # volumes:
 # - /var/run/docker.sock:/var/run/docker.sock  # Доступ к Docker API

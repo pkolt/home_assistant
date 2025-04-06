@@ -28,3 +28,6 @@ http:
 #   - name: telegram_notifier
 #     platform: telegram
 #     chat_id: <channel_id>
+
+media_player:
+  - platform: vlc
