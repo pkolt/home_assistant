@@ -111,3 +111,9 @@ sudo docker compose up -d --force-recreate
 (config)> ip host <доменное_имя_хоста> <адрес>
 (config)> system configuration save
 ```
+
+## Настройка звука из консоли
+
+```sh
+alsamixer
+```
