@@ -24,6 +24,7 @@ services:
       - vlc
     volumes:
       - ./home_assistant/config:/config
+      - ./home_assistant/media:/media
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
     ports:
