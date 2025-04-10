@@ -32,5 +32,6 @@ http:
 media_player:
   - platform: vlc
 
-media_dirs:
-    media: /media
+media_source:
+  media_dirs:
+      media: /media
