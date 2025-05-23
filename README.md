@@ -62,6 +62,9 @@ sudo docker compose up -d
 ```sh
 # Принудительно пересоздаёт контейнеры, даже если образ не изменился
 sudo docker compose up -d --force-recreate
+
+# Пересоздать с Dockerfile (просто --force-recreate не билдит)
+sudo docker compose up -d --build --force-recreate web
 ```
 
 ### Остановить и удалить

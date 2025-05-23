@@ -1,17 +1,4 @@
 services:
-  certbot_once:
-    container_name: certbot_once
-    build: ./certbot_once
-    restart: no
-    ports:
-      - 80:80
-    volumes:
-      - ./letsencrypt/:/etc/letsencrypt
-    env_file:
-      - .env
-    networks:
-      - private
-
   home_assistant:
     container_name: home_assistant
     image: "homeassistant/home-assistant"
@@ -34,40 +21,6 @@ services:
     # privileged: true
     networks:
       - private
-
-  nginx:
-    container_name: nginx
-    image: "nginx"
-    restart: always
-    depends_on:
-      - home_assistant
-      - certbot_once
-    volumes:
-      - ./nginx/templates:/etc/nginx/templates:ro
-      - ./letsencrypt/:/etc/nginx/ssl:ro
-    networks:
-      - private
-    ports:
-    - 443:443
-    env_file:
-      - .env
-
-  certbot_renew:
-    container_name: certbot_renew
-    build: ./certbot_renew
-    restart: always
-    depends_on:
-      - nginx
-    ports:
-      - 80:80
-    volumes:
-      - ./letsencrypt/:/etc/letsencrypt
-      - /var/run/docker.sock:/var/run/docker.sock
-    env_file:
-      - .env
-    networks:
-      - private
-
   mqtt:
     container_name: mqtt
     build: ./mqtt
@@ -169,6 +122,26 @@ services:
       - VLC_TELNET_PASSWORD=${VLC_TELNET_PASSWORD} 
     networks:
       - private
+
+  proxy_ha_port:
+    container_name: proxy_ha_port
+    build:
+      context: ./proxy_ha_port
+      args:
+        # Доступно только в Dockerfile
+        - SSH_HOST=${SSH_HOST}
+    restart: no
+    depends_on:
+      - home_assistant
+    volumes:
+      - ./.ssh/id_ed25519:/root/.ssh/id_ed25519:ro
+      - ./.ssh/id_ed25519.pub:/root/.ssh/id_ed25519.pub:ro
+    networks:
+      - private
+    environment:
+      - SSH_USER=${SSH_USER}
+      - SSH_HOST=${SSH_HOST}
+      - SSH_PORT=${SSH_PORT}
 
 # volumes:
 # - /var/run/docker.sock:/var/run/docker.sock  # Доступ к Docker API

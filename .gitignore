@@ -1,5 +1,5 @@
 .env
-letsencrypt
+.ssh
 home_assistant/config/*
 !home_assistant/config/configuration.yaml
 !home_assistant/config/automations.yaml
