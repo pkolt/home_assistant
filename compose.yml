@@ -130,7 +130,7 @@ services:
       args:
         # Доступно только в Dockerfile
         - SSH_HOST=${SSH_HOST}
-    restart: no
+    restart: always
     depends_on:
       - home_assistant
     volumes:
