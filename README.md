@@ -5,10 +5,10 @@
 [Локальный доступ к Home Assistant](http://127.0.0.1:8080)
 
 Описание контейнеров:
-- `certbot_once` - выпускает SSL-сертификат если его нет и завершает выполнение;
+- `mqtt` - MQTT сервер;
 - `home_assistant` - запускает Home Assistant;
-- `nginx` - запускает Nginx если есть SSL-сертификат;
-- `certbot_renew` - обновляет SSL-сертификат раз в день в определенное время;
+- `proxy_ha_port` - пробрасывает по SSH порт HA на удаленный сервер;
+- `zigbee2mqtt` - управляет устройствами Zigbee и пробрасывает доступ к ним в MQTT;
 
 ## Установка
 
@@ -17,13 +17,7 @@
 3. Открыть порты через UFW
 
 ```sh
-# для обновления сертификата SSL утилитой certbot
-sudo ufw allow 80
-
-# для внешнего доступа по HTTPS
-sudo ufw allow 443
-
-# для локального доступа (на случай если интернет будет недоступен)
+# для Home Assistant
 sudo ufw allow 8080
 
 # для MQTT сервера
@@ -90,15 +84,13 @@ sudo docker compose start
 ```sh
 // -f показывает логи в реальном времени
 sudo docker compose logs -f
-sudo docker compose logs nginx -f
 sudo docker compose logs home_assistant -f
 
 // показывает последние N строк логов
-sudo docker compose logs nginx --tail=50
+sudo docker compose logs home_assistant --tail=50
 
 // открыть терминал для контейнера
 sudo docker compose exec home_assistant bash
-sudo docker compose exec nginx bash
 ```
 
 ### Обновление
@@ -110,7 +102,13 @@ sudo docker compose up -d --force-recreate
 
 ## Настройка локального домена на роутерах Keenetic
 
+https://help.keenetic.com/hc/ru/articles/360011129420-%D0%9E%D0%B1%D1%80%D0%B0%D1%89%D0%B5%D0%BD%D0%B8%D0%B5-%D0%BA-%D1%81%D0%B5%D1%82%D0%B5%D0%B2%D0%BE%D0%BC%D1%83-%D1%83%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D1%83-%D0%BF%D0%BE-hostname
+
 ```
+// Список клиентов
+(config)> show ip dhcp bindings _WEBADMIN
+
+// Задать имя хоста
 (config)> ip host <доменное_имя_хоста> <адрес>
 (config)> system configuration save
 ```
