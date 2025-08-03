@@ -14,9 +14,9 @@ RUN mkdir ~/.ssh && chmod 700 ~/.ssh
 RUN ssh-keyscan -t ed25519 $SSH_HOST >> ~/.ssh/known_hosts
 
 # Фиксим проблему "умирающего" порта (через какое-то время SSH закрывает проброшенный порт)
-# ServerAliveInterval 60: клиент будет каждые 60 секунд посылать "пинг" серверу.
+# ServerAliveInterval 30: клиент будет каждые 30 секунд посылать "пинг" серверу.
 # ServerAliveCountMax 3: если сервер не ответит 3 раза подряд, соединение будет закрыто.
-RUN echo "Host *\n    ServerAliveInterval 60\n    ServerAliveCountMax 3" > ~/.ssh/config
+RUN echo "Host *\n    ServerAliveInterval 30\n    ServerAliveCountMax 3" > ~/.ssh/config
 RUN chmod 600 ~/.ssh/config
 
 # Скопировать файл
